@@ -35,8 +35,7 @@ function wceu_faq_create_post_type() {
 		'show_in_nav_menus' => false,
 		'menu_icon' 			  => 'dashicons-list-view',
 		'supports' 				  => array( 'title', 'editor', 'page-attributes', 'revisions', 'thumbnail' ),
-		'show_in_rest' 			=> true,
-    // 'taxonomies'        => array( 'category' )
+		'show_in_rest' 			=> true
 	);
 
 	register_post_type( 'wceu-faq', $args );
@@ -77,11 +76,9 @@ function wceu_faq_create_taxonomies() {
 }
 add_action( 'init', 'wceu_faq_create_taxonomies' );
 
-
-
 // Check for [wceu-faq] shortcode and load styles if found (we don't want to load the styles if the shortcode doesn't exist on the page)
 // Perform the check on the_posts hook so styles get loaded in <head>
-function faqconc_check_for_shortcode( $posts ) {
+function wceu_faq_check_for_shortcode( $posts ) {
 
   if ( empty( $posts ) )
     return $posts;
@@ -107,7 +104,7 @@ function faqconc_check_for_shortcode( $posts ) {
   return $posts;
 
 }
-add_action( 'the_posts', 'faqconc_check_for_shortcode' );
+add_action( 'the_posts', 'wceu_faq_check_for_shortcode' );
 
 // The shortcode function
 function wceu_faq_show_faqs( $atts ) {
