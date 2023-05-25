@@ -1,0 +1,13 @@
+{
+  "name": "wceu-faq",
+  "version": "0.1.0",
+  "description": "Block implementation of WCEU FAQ",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "wp-scripts start --webpack-src-dir=wceu-faq-block",
+    "build": "wp-scripts build --webpack-src-dir=wceu-faq-block"
+  },
+  "dependencies": {
+    "@wordpress/scripts": "^25.1.0"
+  }
+}
