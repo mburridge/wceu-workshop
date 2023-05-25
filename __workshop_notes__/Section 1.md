@@ -10,7 +10,7 @@ npx @wordpress/create-block --no-plugin --variant dynamic wceu-faq-block
 
 Change `block.json` from 
 
-```
+```js
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 2,
@@ -33,7 +33,7 @@ Change `block.json` from
 
 to
 
-```
+```js
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 2,
@@ -58,7 +58,7 @@ i.e. change name, title, icon, and textdomain
 
 Create an empty `package.json` file in the root of the plugin directory, i.e. `wp-content/plugins/wceu-workshop`, and add the following:
 
-```
+```js
 {
   "name": "wceu-faq",
   "version": "0.1.0",
@@ -76,7 +76,7 @@ Create an empty `package.json` file in the root of the plugin directory, i.e. `w
 
 Register the block in `wceu-faq.php`:
 
-```
+```php
 function register_block() {
   
   register_block_type( __DIR__ . '/build');

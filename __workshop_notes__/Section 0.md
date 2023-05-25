@@ -14,7 +14,7 @@ The repo for this project can be found at https://github.com/mburridge/wceu-work
 
 Clone the repo into your `wp-content/plugins` directory with:
 
-```
+```bash
 git clone https://github.com/mburridge/wceu-workshop
 ```
 
