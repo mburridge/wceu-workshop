@@ -76,3 +76,26 @@ const { category } = attributes;
 
 const faqs = useEntityRecords( 'postType', 'wceu-faq', { 'wceu-faq-cat': category } );
 ```
+
+Finally for this stage, let's style the FAQs in the block to look the same as the shortcode version. Add this to `style,scss`:
+
+```css
+.wp-block-create-block-wceu-faq-block {
+  margin: 12px 0;
+
+  & details {
+    background-color: rgb(199, 226, 228); 
+    margin-bottom: 8px;
+  }
+
+  & details summary {
+    padding: 4px;
+    color: white;
+    background-color: rgb(69, 118, 121); 
+  }
+  
+  & details .faq-content {
+    padding: 4px 16px;
+  }
+}
+```

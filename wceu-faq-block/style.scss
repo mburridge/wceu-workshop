@@ -6,7 +6,22 @@
  */
 
 .wp-block-create-block-wceu-faq-block {
-	background-color: #21759b;
-	color: #fff;
-	padding: 2px;
+
+  margin: 12px 0;
+
+  & details {
+    background-color: rgb(199, 226, 228); 
+    margin-bottom: 8px;
+  }
+
+  & details summary {
+    padding: 4px;
+    color: white;
+    background-color: rgb(69, 118, 121); 
+  }
+  
+  & details .faq-content {
+    padding: 4px 16px;
+  }
+  
 }

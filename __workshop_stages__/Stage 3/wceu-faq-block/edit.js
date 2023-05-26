@@ -44,7 +44,7 @@ export default function Edit( { attributes } ) {
           return (
             <details key={ faq.id }>
               <summary>{ faq.title.raw }</summary>
-              <section dangerouslySetInnerHTML={{ __html: faq.content.raw }} />
+              <section class="faq-content" dangerouslySetInnerHTML={{ __html: faq.content.raw }} />
             </details>
           )
         })  
