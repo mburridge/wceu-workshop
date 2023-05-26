@@ -132,9 +132,10 @@ function wceu_faq_show_faqs( $atts ) {
 
   ob_start();
 
-	if ( $faqs->have_posts() ) {
+  $show_faqs = '<div class="wceu-faq">';
 
-    $show_faqs = '<div class="wceu-faq">';
+	if ( $faqs->have_posts() ) {
+    
     while ( $faqs->have_posts() ) {
       $show_faqs .= '<details>';
       $faqs->the_post();
@@ -142,9 +143,12 @@ function wceu_faq_show_faqs( $atts ) {
       $show_faqs .= '<div class="faq-content">' . get_the_content() . '</div>';
       $show_faqs .= '</details>';
     }
-    $show_faqs .= '</div>';
     
+  } else {
+    $show_faqs .= "No posts found.";
   }
+
+  $show_faqs .= '</div>';
 
   echo $show_faqs;
   wp_reset_postdata();

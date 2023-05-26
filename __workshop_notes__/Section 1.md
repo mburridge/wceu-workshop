@@ -4,7 +4,7 @@ In this section you'll scaffold a dynamic block, build it, and register the bloc
 
 Scaffold a new block with:
 
-```
+```bash
 npx @wordpress/create-block --no-plugin --variant dynamic wceu-faq-block
 ```
 
