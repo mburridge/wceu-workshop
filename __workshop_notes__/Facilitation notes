@@ -1,0 +1,9 @@
+## From shortcode to block
+
+WordCamp Europe 2023, Athens
+_Friday 09 June @ 14:00_
+
+Why migrate a shortcode plug-in to a block:
+- Improve WYSIWYG experience for content editors and other non-technical users, as shortcode block doesn't render the content in the editor
+- Add functionality and features not possible, or not easily done, with shortcode functions
+- Can still retain the shortcode functonality, the shortcode and the block can co-exist in a single plugin

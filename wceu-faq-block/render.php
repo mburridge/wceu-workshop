@@ -10,18 +10,16 @@
     'posts_per_page'	=> '-1'
   );
 
-  // print_r( $attributes['category'] );
   // check for category and add to query arguments ($args)
   if ( $attributes['category'] ) {
     $args[ 'tax_query' ] = array(
       array(
         'taxonomy' => 'wceu-faq-cat',
-        'field'    => 'id',
+        'field'    => 'term_id',
         'terms'    => $attributes[ 'category' ]
       )
     );
   }
-
   
   $faqs = new WP_Query( $args );
 

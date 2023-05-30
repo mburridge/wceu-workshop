@@ -17,8 +17,7 @@
   "render": "file:./render.php",
   "attributes": {
     "category": {
-      "type": "integer",
-      "default": 4
+      "type": "integer"
     }
   }
 }

@@ -52,7 +52,7 @@ Now add a query parameter to `useEntityRecords` to fetch just the FAQs from a ce
  $args[ 'tax_query' ] = array(
   array(
     'taxonomy' => 'wceu-faq-cat',
-    'field'    => 'id',
+    'field'    => 'term_id',
     'terms'    => $attributes[ 'category' ]
   )
 );

@@ -11,7 +11,8 @@ import { __ } from '@wordpress/i18n';
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
-import { useBlockProps } from '@wordpress/block-editor';
+import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
+import { PanelBody, SelectControl } from '@wordpress/components';
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -31,24 +32,62 @@ import { useEntityRecords } from '@wordpress/core-data';
  *
  * @return {WPElement} Element to render.
  */
-export default function Edit( { attributes } ) {
+export default function Edit( { attributes, setAttributes } ) {
+	const { category } = attributes;
 
-  const { category } = attributes;
+	const query = category ? { 'wceu-faq-cat': category } : {};
 
-  const faqs = useEntityRecords( 'postType', 'wceu-faq', { 'wceu-faq-cat': category } );
+	const faqs = useEntityRecords( 'postType', 'wceu-faq', query );
+	const cats = useEntityRecords( 'taxonomy', 'wceu-faq-cat' );
+
+	const options =
+		cats.records &&
+		cats.records.map( ( cat ) => {
+			return {
+				label: cat.name,
+				value: cat.id,
+			};
+		} );
+
+	const onChangecCat = ( val ) =>
+		setAttributes( { category: Number( val ) } );
 
 	return (
-		<div { ...useBlockProps() }>
-			{
-        faqs.records && faqs.records.map( (faq) => {
-          return (
-            <details key={ faq.id }>
-              <summary>{ faq.title.raw }</summary>
-              <section class="faq-content" dangerouslySetInnerHTML={{ __html: faq.content.raw }} />
-            </details>
-          )
-        })  
-      }
-		</div>
+		<>
+			<InspectorControls>
+				<PanelBody>
+					{ cats.hasResolved && (
+						<SelectControl
+							label={ 'Category' }
+							onChange={ onChangecCat }
+							value={ category }
+							options={ [
+								{
+									label: 'All',
+									value: 0,
+								},
+								...options,
+							] }
+						/>
+					) }
+				</PanelBody>
+			</InspectorControls>
+			<div { ...useBlockProps() }>
+				{ faqs.records &&
+					faqs.records.map( ( faq ) => {
+						return (
+							<details key={ faq.id }>
+								<summary>{ faq.title.raw }</summary>
+								<section
+									className="faq-content"
+									dangerouslySetInnerHTML={ {
+										__html: faq.content.raw,
+									} }
+								/>
+							</details>
+						);
+					} ) }
+			</div>
+		</>
 	);
 }
