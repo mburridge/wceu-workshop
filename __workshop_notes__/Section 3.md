@@ -14,21 +14,23 @@ Replace the `Edit()` function with this:
 
 ```js
 export default function Edit() {
-
-  const faqs = useEntityRecords( 'postType', 'wceu-faq' );
+	const faqs = useEntityRecords( 'postType', 'wceu-faq' );
 
 	return (
 		<div { ...useBlockProps() }>
-			{
-        faqs.records && faqs.records.map( (faq) => {
-          return (
-            <details key={ faq.id }>
-              <summary>{ faq.title.raw }</summary>
-              <section dangerouslySetInnerHTML={{ __html: faq.content.raw }} />
-            </details>
-          )
-        })  
-      }
+			{ faqs.records &&
+				faqs.records.map( ( faq ) => {
+					return (
+						<details key={ faq.id }>
+							<summary>{ faq.title.raw }</summary>
+							<section
+								dangerouslySetInnerHTML={ {
+									__html: faq.content.raw,
+								} }
+							/>
+						</details>
+					);
+				} ) }
 		</div>
 	);
 }
@@ -39,22 +41,22 @@ Now you can see all the FAQs in the editor too
 Now add a query parameter to `useEntityRecords` to fetch just the FAQs from a certain category:
 
 ```js
- const faqs = useEntityRecords( 'postType', 'wceu-faq', { 'wceu-faq-cat': 4 } );
- ```
+const faqs = useEntityRecords( 'postType', 'wceu-faq', { 'wceu-faq-cat': 4 } );
+```
 
- We have to pass the ID of the custom taxonomy term here, we can't use the slug.
+We have to pass the ID of the custom taxonomy term here, we can't use the slug.
 
- So it makes sense to also use the ID in `render.php` too, as ultimately that is what we'll need to store in the attributes.
+So it makes sense to also use the ID in `render.php` too, as ultimately that is what we'll need to store in the attributes.
 
- Change the `tax_query` args to:
+Change the `tax_query` args to:
 
- ```php
- $args[ 'tax_query' ] = array(
-  array(
-    'taxonomy' => 'wceu-faq-cat',
-    'field'    => 'term_id',
-    'terms'    => $attributes[ 'category' ]
-  )
+```php
+$args[ 'tax_query' ] = array(
+ array(
+   'taxonomy' => 'wceu-faq-cat',
+   'field'    => 'term_id',
+   'terms'    => $attributes[ 'category' ]
+ )
 );
 ```
 
@@ -74,28 +76,30 @@ Now we can get that attribute and use it in place of the hard-coded ID passed to
 ```js
 const { category } = attributes;
 
-const faqs = useEntityRecords( 'postType', 'wceu-faq', { 'wceu-faq-cat': category } );
+const faqs = useEntityRecords( 'postType', 'wceu-faq', {
+	'wceu-faq-cat': category,
+} );
 ```
 
 Finally for this stage, let's style the FAQs in the block to look the same as the shortcode version. Add this to `style,scss`:
 
 ```css
 .wp-block-create-block-wceu-faq-block {
-  margin: 12px 0;
+	margin: 12px 0;
 
-  & details {
-    background-color: rgb(199, 226, 228); 
-    margin-bottom: 8px;
-  }
+	& details {
+		background-color: rgb( 199, 226, 228 );
+		margin-bottom: 8px;
+	}
 
-  & details summary {
-    padding: 4px;
-    color: white;
-    background-color: rgb(69, 118, 121); 
-  }
-  
-  & details .faq-content {
-    padding: 4px 16px;
-  }
+	& details summary {
+		padding: 4px;
+		color: white;
+		background-color: rgb( 69, 118, 121 );
+	}
+
+	& details .faq-content {
+		padding: 4px 16px;
+	}
 }
 ```

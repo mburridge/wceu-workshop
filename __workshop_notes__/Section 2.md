@@ -7,21 +7,21 @@ Open `render.php`. Copy the shortcode function from `wceu-faq.php` to this file.
 Change it as follows:
 
 ```php
-<?php 
+<?php
 
   $args = array(
-    'post_type' 		=> 'wceu-faq',
-    'posts_per_page'	=> '-1'
+    'post_type' => 'wceu-faq',
+    'posts_per_page' => '-1'
   );
 
   // tax-query removed
-  
+
   $faqs = new WP_Query( $args );
 
   $show_faqs = '<div ' . get_block_wrapper_attributes() . '>'; // class changed
 
   if ( $faqs->have_posts() ) {
-    
+
     while ( $faqs->have_posts() ) {
       $show_faqs .= '<details>';
       $faqs->the_post();
@@ -29,7 +29,7 @@ Change it as follows:
       $show_faqs .= '<div class="faq-content">' . get_the_content() . '</div>';
       $show_faqs .= '</details>';
     }
-    
+
   }  else {
     $show_faqs .= "No posts found.";
   }
@@ -84,4 +84,3 @@ if ( $attributes['category'] ) {
 ```
 
 Try changing the category default in `block.json` and see how the front end renders different FAQs. Try changing it to a non-existent category.
-
