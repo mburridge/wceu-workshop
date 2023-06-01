@@ -15,4 +15,4 @@ Clone the repo into your `wp-content/plugins` directory with:
 git clone https://github.com/mburridge/wceu-workshop
 ```
 
-Work in the `__workshop_notes__` directory. Start at [Section 0](./__workshop_notes__/Section%200.md) and work step by step through to [Section 5](./__workshop_notes__/Section%205.md).
+Work in the [\_\_workshop_notes\_\_](./__workshop_notes__) directory. Start at [Section 0](./__workshop_notes__/Section%200.md) and work step by step through to [Section 5](./__workshop_notes__/Section%205.md).
