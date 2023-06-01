@@ -135,7 +135,7 @@ function wceu_faq_show_faqs( $atts ) {
   $show_faqs = '<div class="wceu-faq">';
 
 	if ( $faqs->have_posts() ) {
-    
+
     while ( $faqs->have_posts() ) {
       $show_faqs .= '<details>';
       $faqs->the_post();
@@ -156,3 +156,11 @@ function wceu_faq_show_faqs( $atts ) {
 
 }
 add_shortcode( 'wceu-faq', 'wceu_faq_show_faqs' );
+
+
+function register_block() {
+  
+  register_block_type( __DIR__ . '/build');
+
+}
+add_action( 'init', 'register_block' );
