@@ -16,10 +16,10 @@ Then add the component to the `InspectorControls` component:
 
 ```js
 <PanelColorSettings
-	title="Colour settings"
+	title="Question colours"
 	colorSettings={ [
 		{
-			label: 'Question text colour',
+			label: 'Text',
 			value: questionTextColor,
 			onChange: onChangeQuestionTextColor,
 		},
@@ -57,7 +57,7 @@ const faqStyles = {
 };
 ```
 
-Pass the object to useBlockProps
+Pass the object to the `useBlockProps` hook on the `div` wrapper element:
 
 ```js
 <div { ...useBlockProps( { style: faqStyles} ) }>
@@ -95,10 +95,10 @@ As we've already seen, the attributes are automagically available in `render.php
 First create an `$faq_styles` variable, and pass it a string with the CSS variable name and the value from the attributes, separated with a colon - i.e. formated as CSS.
 
 ```php
-  $faq_styles = "--question-text-color: " . $attributes["questionTextColor"];
+$faq_styles = "--question-text-color: " . $attributes["questionTextColor"];
 ```
 
-Then, similarly to how we passed an object containing the styles to `useBlockProps`, we pass an associative array with a `style` property which takes the CSS string as it's value.
+Then, similarly to how we passed an object containing the styles to `useBlockProps`, we pass an associative array to `get_block_wrapper_attributes()`. This array has a `style` property which takes the CSS string as it's value.
 
 ```php
 $show_faqs = '<div ' . get_block_wrapper_attributes( array( "style" =>  $faq_styles  ) ) . '>';
@@ -155,12 +155,14 @@ Add the CSS variable to `style.scss`:
 }
 ```
 
-Then for the front end we add it to the `$faq_styles` string:
+Then for the front end we add it to the `$faq_styles` string in `render.php`:
 
 ```php
 $faq_styles = "--question-text-color: " . $attributes["questionTextColor"];
 $faq_styles .= "; --question-background-color: " . $attributes["questionBackgroundColor"];
 ```
+
+And now we can change both the text colour and the background colour for the questions, and these changes show up in the front end too. Furthermore, separate FAQ blocks can have different colour settings, just as they can have different categories.
 
 Now let's do the same for the answer panel colour settings.
 
@@ -195,6 +197,15 @@ Add a new `PanelColorSettings` component called "Answer colours":
 		},
 	] }
 ></PanelColorSettings>
+```
+
+Create the handler functions for both of these:
+
+```js
+const onChangeAnswerTextColor = ( val ) =>
+	setAttributes( { answerTextColor: val } );
+const onChangeAnswerBackgroundColor = ( val ) =>
+	setAttributes( { answerBackgroundColor: val } );
 ```
 
 Destructure them from the attributes, and add them to `faqStyles`:

@@ -2,7 +2,7 @@
 
 In this section you'll render the FAQs in the front end.
 
-Open `render.php`. Copy the shortcode function from `wceu-faq.php` to this file.
+Open `render.php`. Copy the contents of the shortcode function, `wceu_faq_show_faqs()`, from `wceu-faq.php` to this file.
 
 Change it as follows:
 
@@ -42,7 +42,17 @@ Change it as follows:
 ?>
 ```
 
+Here you're just removing the tax-query part and adding the `get_block_wrapper_attributes()` function in place of the class on the outer `div` element.
+
+Save the file and run the following command which starts a watcher that updates the `build` folder whenever a changed file is saved:
+
+```bash
+npm start
+```
+
 The block shows all the FAQs on the front end.
+
+Now let's show the FAQs from a specific category.
 
 Add a `tax_query` property to the `$args` array, with a hardcoded category:
 
@@ -58,15 +68,17 @@ $args['tax_query'] = array(
 
 Now just the FAQs from that category display in the front end.
 
+Now let's make our first baby steps towards making the category user configurable.
+
 Add an attributes object to `block.json`:
 
 ```js
 "attributes": {
-    "category": {
-      "type": "string",
-      "default": "athens"
-    }
+  "category": {
+    "type": "string",
+    "default": "athens"
   }
+}
 ```
 
 $attributes is automagically available to `render.php`. Check for the existence of a category and use that instead:

@@ -24,6 +24,7 @@ export default function Edit() {
 						<details key={ faq.id }>
 							<summary>{ faq.title.raw }</summary>
 							<section
+								className="faq-content"
 								dangerouslySetInnerHTML={ {
 									__html: faq.content.raw,
 								} }
@@ -36,7 +37,13 @@ export default function Edit() {
 }
 ```
 
-Now you can see all the FAQs in the editor too
+Here `useEntityRecords` fetches the posts in the `wceu-faq` CPT and stores the results in the `faqs` const.
+
+The wrapper `div` has the `useBlockProps` React hook spread onto it. This pass props to the wrapper element, including classes that the block needs. `useBlockProps` can also take an object containing additional information, as we'll see later on.
+
+The array of FAQs is then processed using `array.map`. Each FAQ is enclosed in a `details` element.The title is used for the `summary` element, and the answer is place in a `section` element.
+
+Now you can see all the FAQs in the editor too.
 
 Now add a query parameter to `useEntityRecords` to fetch just the FAQs from a certain category:
 
@@ -71,7 +78,15 @@ And change the `category` attribute in `block.json` to:
 }
 ```
 
-Now we can get that attribute and use it in place of the hard-coded ID passed to `useEntityRecords`:
+Now we can get that attribute and use it in place of the hard-coded ID passed to `useEntityRecords`.
+
+Firstly destructure `attributes` from the object passed to the `Edit()` function:
+
+```js
+export default function Edit( { attributes } ) {
+```
+
+And then destructure `category` from the `attributes` object and use it in place of the hard-coded category ID:
 
 ```js
 const { category } = attributes;
@@ -81,7 +96,7 @@ const faqs = useEntityRecords( 'postType', 'wceu-faq', {
 } );
 ```
 
-Finally for this stage, let's style the FAQs in the block to look the same as the shortcode version. Add this to `style,scss`:
+Finally for this stage, let's style the FAQs in the block to look the same as the shortcode version. Add this to `style.scss`:
 
 ```css
 .wp-block-create-block-wceu-faq-block {

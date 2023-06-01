@@ -54,6 +54,3 @@
   echo $show_faqs;
 
 ?>
-
-
-

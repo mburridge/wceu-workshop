@@ -2,13 +2,15 @@
 
 In this section you'll scaffold a dynamic block, build it, and register the block in `wceu-faq.php`.
 
-Scaffold a new block with:
+From within the `wp-content/plugins/wceu-workshop` directory, scaffold a new block with:
 
 ```bash
 npx @wordpress/create-block --no-plugin --variant dynamic wceu-faq-block
 ```
 
-Change `block.json` from 
+You will have a new directory called `wceu-faq-block`. This is primarily where you will be working.
+
+Change `block.json` from
 
 ```js
 {
@@ -54,7 +56,7 @@ to
 }
 ```
 
-i.e. change name, title, icon, and textdomain
+i.e. change title, icon, and textdomain
 
 Create an empty `package.json` file in the root of the plugin directory, i.e. `wp-content/plugins/wceu-workshop`, and add the following:
 
@@ -78,12 +80,13 @@ Register the block in `wceu-faq.php`:
 
 ```php
 function register_block() {
-  
+
   register_block_type( __DIR__ . '/build');
 
 }
 add_action( 'init', 'register_block' );
 ```
 
-Run `npm install` followed by `npm run build`. Try out your new block in the editor and in the front end.
+Save all the changed files, then run `npm install` followed by `npm run build` from the plugin root. You'll now have a `node_modules` folder and a `build` folder. The `build` folder is where the block is actually registered from.
 
+Try out your new block in the editor and in the front end. Add a 'WCEU FAQ' block to your page.

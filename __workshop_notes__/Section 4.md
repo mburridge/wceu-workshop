@@ -2,21 +2,18 @@
 
 In this section you'll make the category user selectable.
 
-Ideally, the default category should be 0, i.e. get all the FAQs.
-
-Remove the default from `block.json`
+Ideally, there should be no default category, i.e. get all the FAQs, so set the default to 0 in `block.json`
 
 ```js
 "attributes": {
   "category": {
-    "type": "integer"
+    "type": "integer",
+    "default: 0
   }
 }
 ```
 
-??? But now there's a problem. Instead of showing all the FAQs, the block in the editor doesn't show anything.
-
-We need to use a conditional to add the query object, like we did in `render.php`:
+We'll use a conditional to add the query object, like we did in `render.php`:
 
 ```js
 const { category } = attributes;
@@ -90,12 +87,28 @@ Add these to the JSX
 </InspectorControls>
 ```
 
-Here we've hard-coded the IDs, so let's fetch the categories from the database and take a look at what we get back:
+Then we need the `onChangeCat` handler function:
+
+```js
+const onChangecCat = ( val ) => setAttributes( { category: Number( val ) } );
+```
+
+As the attribute is of `type: integer` we need to cast the value from the SelectControl to a Number.
+
+The handler function also uses `setAttributes` so that also needs to be destructured from the object passed to the `Edit()` function:
+
+```js
+export default function Edit( { attributes, setAttributes } ) {
+```
+
+This works, and if you change the category the attribute updates and the front end will reflect that, but at the moment we're using hard-coded IDs, so let's fetch the categories from the database and take a look at what we get back:
 
 ```js
 const cats = useEntityRecords( 'taxonomy', 'wceu-faq-cat' );
 console.log( cats );
 ```
+
+You'll see that once `hasResolved` is true the `records` property has an array containing the `wceu-faq-cat`custom taxonomy terms.
 
 Create an array that will replace the hard-coded version:
 
@@ -133,12 +146,4 @@ Then we can replace the static options with:
 }
 ```
 
-Again we need to check for `cats.hasResolved`.
-
-Then we need the `onChangeCat` handler function:
-
-```js
-const onChangecCat = ( val ) => setAttributes( { category: Number( val ) } );
-```
-
-As the attribute is of `type: integer` we need to cast the value from the SelectControl to a Number.
+Again we need to check for `cats.hasResolved`. We also add an option for 'All'.
