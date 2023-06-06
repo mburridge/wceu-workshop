@@ -90,7 +90,7 @@ Add these to the JSX
 Then we need the `onChangeCat` handler function:
 
 ```js
-const onChangecCat = (val) => setAttributes({ category: Number(val) });
+const onChangeCat = (val) => setAttributes({ category: Number(val) });
 ```
 
 As the attribute is of `type: integer` we need to cast the value from the SelectControl to a Number.
