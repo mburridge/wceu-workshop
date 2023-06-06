@@ -66,7 +66,7 @@ Add these to the JSX
   <PanelBody>
     <SelectControl
       label={"Category"}
-      onChange={onChangecCat}
+      onChange={onChangeCat}
       value={category}
       options={[
         {

@@ -49,7 +49,7 @@ export default function Edit( { attributes, setAttributes } ) {
 			};
 		} );
 
-	const onChangecCat = ( val ) =>
+	const onChangeCat = ( val ) =>
 		setAttributes( { category: Number( val ) } );
 
 	return (
@@ -59,7 +59,7 @@ export default function Edit( { attributes, setAttributes } ) {
 					{ cats.hasResolved && (
 						<SelectControl
 							label={ 'Category' }
-							onChange={ onChangecCat }
+							onChange={ onChangeCat }
 							value={ category }
 							options={ [
 								{
